@@ -1,86 +1,99 @@
-# Marvel Champions Card Explorer – Streamlit demo
-# -------------------------------------------------
-# Requires:
-#     pip install streamlit pandas pillow
-#     pip install streamlit-draggable-list   # (optional) for tier-list drag & drop
+# Marvel Champions Card Viewer – v0.2
+# --------------------------------------------------
+# Simplified demo focused on visual layout only.
+#   • Rounded corners (radius 24 px)
+#   • Outline stroke colour per card `type`
+#   • Automatic stacking of duplicate copies (pair / trio)
 #
-# Run with:
-#     streamlit run app.py
-
+# How to run
+#   pip install streamlit pandas pillow
+#   streamlit run app.py
+#
+# Data model (minimal):
+#   name | aspect | tier | img | type | copies
+# --------------------------------------------------
 from __future__ import annotations
 
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+from typing import Dict
 
-st.set_page_config(page_title="Marvel Champions Explorer", page_icon="🃏", layout="wide")
+# ---------------------------------------------------------------------------
+# HELPER ---------------------------------------------------------------------
 
-# ------------------ CSS tweaks ------------------
-st.markdown(
-    '''
-    <style>
-    .card-img {
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-        transition: transform .1s ease-in-out;
-    }
-    .card-img:hover {
-        transform: scale(1.03);
-    }
-    </style>
-    ''',
-    unsafe_allow_html=True
-)
+def _build_card_html(url: str, copies: int, stroke_colour: str) -> str:
+    """Return HTML block with 1‑3 stacked images."""
+    # ensure at least 1
+    copies = max(1, min(copies, 3))
+    layers = []
+    for idx in range(copies):
+        z = 10 - idx  # highest z‑index on top
+        shift = STACK_OFFSET_PX * idx
+        style = (
+            f"position:absolute; top:{shift}px; left:{shift}px; z-index:{z};"
+            f"width:100%; border:{BORDER_WIDTH_PX}px solid {stroke_colour};"
+            f"border-radius:{BORDER_RADIUS_PX}px;"
+        )
+        layers.append(f'<img src="{url}" style="{style}">')
 
-# ------------------ Data ------------------
-@st.cache_data
-def load_data() -> pd.DataFrame:
-    """Return a DataFrame with Marvel Champions cards.
-    Replace this stub with your own CSV or API call.
-    """
-    sample_data = [
-        {"name": "Spider-ghub", "aspect": "Leadership", "tier": "S", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01001a.webp"},
-        {"name": "Spider Fran", "aspect": "Justice", "tier": "A", "img": "https://raw.githubusercontent.com/bluefireF5ran/streamlit-MC_app/refs/heads/main/MC_Images/01001A.jpg?token=GHSAT0AAAAAADCPWJ642KVHAX3D5K5GKFEO2CBNV3Q"},
-    ]
-    return pd.DataFrame(sample_data)
+    # wrapper sets relative positioning + padding so outer size fits
+    pad = STACK_OFFSET_PX * (copies - 1) + BORDER_WIDTH_PX
+    wrapper_style = f"position:relative; display:inline-block; padding:{pad}px;"
+    return f'<div style="{wrapper_style}">{"".join(layers)}</div>'
 
 
-df = load_data()
+st.set_page_config(page_title="MC Card Viewer", page_icon="🃏", layout="wide")
 
-# ------------------ Sidebar ------------------
+# ---------------------------------------------------------------------------
+# CONFIGURABLES --------------------------------------------------------------
+# Map card `type` → stroke colour
+TYPE_COLOURS: Dict[str, str] = {
+    "Hero": "#1b9e77",
+    "Event": "#d95f02",
+    "Upgrade": "#7570b3",
+    "Support": "#e7298a",
+    "Ally": "#66a61e",
+    "Resource": "#e6ab02",
+}
+
+BORDER_RADIUS_PX = 24  # corners
+BORDER_WIDTH_PX = 4    # outline thickness
+STACK_OFFSET_PX = 18   # shift between duplicates
+
+# ---------------------------------------------------------------------------
+# SAMPLE DATA ---------------------------------------------------------------
+# In real app replace with CSV / API
+sample_url = "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01001a.webp"
+
+data = pd.DataFrame([
+    {"name": "Spiderman", "aspect": "Justice", "tier": "S", "img": sample_url, "type": "Hero", "copies": 1},
+    {"name": "Desperate Defense", "aspect": "Protection", "tier": "A", "img": sample_url, "type": "Event", "copies": 3},
+])
+
+# ---------------------------------------------------------------------------
+# SIDEBAR -------------------------------------------------------------------
 st.sidebar.header("Filtros")
-aspects = st.sidebar.multiselect("Aspectos", options=sorted(df["aspect"].unique()), default=df["aspect"].unique())
+columns = st.sidebar.slider("Columnas", 1, 6, 3)
 
-tiers = st.sidebar.multiselect("Tier", options=sorted(df["tier"].unique()), default=df["tier"].unique())
+# ---------------------------------------------------------------------------
+# MAIN GRID ------------------------------------------------------------------
+cols = st.columns(columns, gap="large")
 
-cols = st.sidebar.slider("Columnas", 1, 6, 4)
+for i, card in data.iterrows():
+    col = cols[i % columns]
 
-filtered = df[df["aspect"].isin(aspects) & df["tier"].isin(tiers)]
+    # pick stroke colour from type
+    stroke = TYPE_COLOURS.get(card["type"], "#ffffff")
 
-# ------------------ Grid display ------------------
-if filtered.empty:
-    st.info("No hay cartas que coincidan con los filtros.")
-else:
-    rows = [filtered.iloc[i : i + cols] for i in range(0, len(filtered), cols)]
-    for row in rows:
-        columns = st.columns(len(row))
-        for card, col in zip(row.itertuples(), columns):
-            with col:
-                st.image(card.img, caption=f"{card.name} [{card.tier}]", use_container_width=True)
+    # container with relative positioning to stack duplicates
+    with col:
+        n = int(card["copies"])
+        container = st.container()
+        with container:
+            st.markdown(
+                _build_card_html(card["img"], n, stroke),
+                unsafe_allow_html=True,
+            )
+        st.caption(card["name"])
 
-# ------------------ Tier‑list drag & drop (opcional) ------------------
-st.markdown("---")
-st.header("Crea tu propia Tier List")
-
-try:
-    from streamlit_draggable_list import draggable_list
-
-    tiers_order = ["S", "A", "B", "C", "D"]
-    cards = [f"{row.name} ({row.tier})" for _, row in df.iterrows()]
-    new_order = draggable_list(cards, tiers_order)
-    st.success("Nuevo orden guardado en variable `new_order`.")
-except ModuleNotFoundError:
-    st.warning(
-        "👉 Instala **streamlit-draggable-list** para habilitar la función de arrastrar y soltar:\n\n"
-        "```bash\npip install streamlit-draggable-list\n```"
-    )
