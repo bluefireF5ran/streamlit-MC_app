@@ -37,19 +37,7 @@ def load_data() -> pd.DataFrame:
             "name": "Spider‑Man",
             "tier": "S",
             "aspect": "Justice",
-            "img": "https://raw.githubusercontent.com/streamlit/example-data/master/spiderman.png",
-        },
-        {
-            "name": "Captain Marvel",
-            "tier": "A",
-            "aspect": "Aggression",
-            "img": "https://raw.githubusercontent.com/streamlit/example-data/master/captain_marvel.png",
-        },
-        {
-            "name": "Hulk",
-            "tier": "B",
-            "aspect": "Protection",
-            "img": "https://raw.githubusercontent.com/streamlit/example-data/master/hulk.png",
+            "img": "https://github.com/bluefireF5ran/streamlit-MC_app/blob/main/MC_Images/01001A.jpg",
         },
         # Add the rest of your cards here …
     ]
