@@ -7,6 +7,8 @@
 #   streamlit run app.py
 
 from __future__ import annotations
+from hero_image_urls import hero_image_urls
+
 
 import streamlit as st
 import pandas as pd
