@@ -86,6 +86,9 @@ def render_card(row: pd.Series) -> str:
 # ----------------------------- UI -------------------------------------------
 st.markdown("<style>body {background:#0e1117; color:#e1e1e1}</style>", unsafe_allow_html=True)
 st.title("Marvel Champions Legacy")
+st.subheader("Marvel Champions Legacy Redux by Bluefire")
+
+
 cols = st.slider("Columnas", 1, 6, 3, key="cols")
 
 grid_cols = st.columns(cols)
