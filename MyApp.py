@@ -19,12 +19,17 @@ BORDER_RADIUS_PX = 14      # corner radius (px)
 
 # colour per aspect (stroke)
 TYPE_COLOURS = {
-    "Justice":     "#ffd166",
-    "Leadership":  "#06d6a0",
-    "Aggression":  "#ef476f",
-    "Protection":  "#118ab2",
-    "Basic":       "#8338ec",
+    "Hero":           '#0074D9',
+    "Justice":        '#FFD700',
+    "Leadership":     '#00CED1',
+    "Aggression":     '#FF4136',
+    "Protection":     '#32CD32',
+    "Pool":           '#FF69B4',
+    "Scenario":       '#800080',
+    "Basic":          '#B0B0B0',
 }
+
+
 
 st.set_page_config(page_title="MC Card Viewer", layout="wide", page_icon="🃏")
 
@@ -32,10 +37,10 @@ st.set_page_config(page_title="MC Card Viewer", layout="wide", page_icon="🃏")
 sample_url = "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01001a.webp"
 
 data = pd.DataFrame([
-    {"name": "Spiderman",          "aspect": "Justice",    "tier": "S", "img": sample_url, "type": "Event", "copies": 1},
+    {"name": "Spiderman",          "aspect": "Hero",    "tier": "S", "img": sample_url, "type": "Event", "copies": 1},
     {"name": "Desperate Defense", "aspect": "Protection", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/09015.webp", "type": "Event", "copies": 3},
-    {"name": "Gancho",             "aspect": "Protection", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01054.webp", "type": "Event", "copies": 2},
-    {"name": "Wakanda Forever",             "aspect": "Protection", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01043b.webp", "type": "Event", "copies": 4},
+    {"name": "Gancho",             "aspect": "Aggression", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01054.webp", "type": "Event", "copies": 2},
+    {"name": "Wakanda Forever",             "aspect": "Hero", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01043b.webp", "type": "Event", "copies": 4},
 ])
 
 # ----------------- CARD HTML RENDER -----------------------------------------
