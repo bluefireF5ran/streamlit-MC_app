@@ -76,7 +76,18 @@ def render_card(row: pd.Series) -> str:
     )
 
 # ----------------------------- UI -------------------------------------------
-st.markdown("<style>body {background:#0e1117; color:#e1e1e1}</style>", unsafe_allow_html=True)
+background_image_url = "https://github.com/alechoward-lab/Marvel-Champions-Hero-Tier-List/blob/main/images/background/marvel_champions_background_image_v4.jpg?raw=true"
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background: url({background_image_url}) no-repeat center center fixed;
+        background-size: cover;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.title("Marvel Champions Legacy")
 st.subheader("Marvel Champions Legacy Redux by Bluefire")
 
