@@ -29,7 +29,7 @@ hero_image_urls = {
     "Valkyrie": "https://i.imgur.com/6PJpQic.jpeg",
     "Vision": "https://i.imgur.com/EBfS6yg.jpeg",
     "Ghost Spider": "https://i.imgur.com/2GEyrsW.jpeg",
-    "Spider-Man (Miles)": "https://i.imgur.com/QUXyFIH.jpeg",
+    "Spider-Man Miles": "https://i.imgur.com/QUXyFIH.jpeg",
     "Nova": "https://i.imgur.com/IKXQlNM.jpeg",
     "Ironheart": "https://i.imgur.com/5HhKJv5.jpeg",
     "SP//dr": "https://i.imgur.com/hWf0S7s.jpeg",
