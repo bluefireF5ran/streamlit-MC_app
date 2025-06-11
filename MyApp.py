@@ -34,13 +34,11 @@ TYPE_COLOURS = {
 st.set_page_config(page_title="MC Card Viewer", layout="wide", page_icon="🃏")
 
 # ----------------- SAMPLE DATA ----------------------------------------------
-sample_url = "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01001a.webp"
-
 data = pd.DataFrame([
-    {"name": "Spiderman",          "aspect": "Hero",    "tier": "S", "img": sample_url, "type": "Event", "copies": 1},
+    {"name": "Spiderman",         "aspect": "Hero",       "tier": "S", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01001a.webp", "type": "Event", "copies": 1},
     {"name": "Desperate Defense", "aspect": "Protection", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/09015.webp", "type": "Event", "copies": 3},
-    {"name": "Gancho",             "aspect": "Aggression", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01054.webp", "type": "Event", "copies": 2},
-    {"name": "Wakanda Forever",             "aspect": "Hero", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01043b.webp", "type": "Event", "copies": 4},
+    {"name": "Gancho",            "aspect": "Aggression", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01054.webp", "type": "Event", "copies": 2},
+    {"name": "Wakanda Forever",   "aspect": "Hero",       "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01043b.webp", "type": "Event", "copies": 4},
 ])
 
 # ----------------- CARD HTML RENDER -----------------------------------------
@@ -82,7 +80,7 @@ def render_card(row: pd.Series) -> str:
 
 # ----------------------------- UI -------------------------------------------
 st.markdown("<style>body {background:#0e1117; color:#e1e1e1}</style>", unsafe_allow_html=True)
-
+st.title("Marvel Champions Legacy")
 cols = st.slider("Columnas", 1, 6, 3, key="cols")
 
 grid_cols = st.columns(cols)
@@ -90,3 +88,28 @@ for idx, (_, row) in enumerate(data.iterrows()):
     with grid_cols[idx % cols]:
         st.markdown(render_card(row), unsafe_allow_html=True)
         st.caption(row["name"])
+
+
+
+# ------------------------- SIDEBAR -----------------------------------------
+with st.sidebar:
+    st.markdown("### Main Page")
+    
+    # Theme selector
+    theme = st.selectbox("Theme", ["Dark", "Light"], index=0)
+    
+    # GitHub link
+    st.markdown("---")
+    st.markdown("### 🔗 Links")
+    st.markdown("[📖 GitHub Repository](https://github.com/bluefireF5ran/streamlit-MC_app.git)")
+    st.markdown("[🎮 Marvel Champions BGG](https://boardgamegeek.com/boardgame/285774/marvel-champions-card-game)")
+    st.markdown("[🍋‍🟩 Living Tier List by Daring Lime](https://marvelchampionslivingtierlist.streamlit.app)")
+    st.markdown("[🤖 Marvel Champions Simulator by forsooth](https://www.marvelsimulator.com)")
+    st.markdown("[📊 Marvel Champions Tracker by StarLordOfThunder](https://marvelchampionstracker.com/home)")
+    st.markdown("[❓ Marvel Champions Randomizer by krassek](https://krasstek.shinyapps.io/marvelchampioner)")
+    
+    
+    # Credits
+    st.markdown("---")
+    st.markdown("### 👨‍💻 Credits")
+    st.markdown("Created by Bluefire")
