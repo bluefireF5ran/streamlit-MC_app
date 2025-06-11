@@ -118,3 +118,6 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 👨‍💻 Credits")
     st.markdown("Created by Bluefire")
+
+st.markdown("Official card images are from the Cerebro Discord bot developed by UnicornSnuggler. Thank you!")
+st.markdown("Other card images are from their respective homebrew creators, they're awesome, check their content!")
