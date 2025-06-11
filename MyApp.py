@@ -11,8 +11,11 @@ from hero_image_urls import hero_image_urls
 
 
 import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import pandas as pd
-from pathlib import Path
+import copy
 
 # ---------- TUNABLE CONSTANTS ------------------------------------------------
 CARD_BASE_W = 240          # px – width of the front card
