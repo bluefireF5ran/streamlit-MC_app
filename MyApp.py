@@ -18,6 +18,7 @@ import copy
 
 from hero_image_urls import hero_image_urls
 from aspect_colors import aspect_colors
+from card_data import card_data
 
 
 # ---------- TUNABLE CONSTANTS ------------------------------------------------
@@ -31,12 +32,7 @@ BORDER_RADIUS_PX = 14      # corner radius (px)
 st.set_page_config(page_title="MC Card Viewer", layout="wide", page_icon="🃏")
 
 # ----------------- SAMPLE DATA ----------------------------------------------
-data = pd.DataFrame([
-    {"name": "Spiderman",         "aspect": "Hero",       "tier": "S", "img": hero_image_urls["Moon Knight"], "type": "Event", "copies": 1},
-    {"name": "Desperate Defense", "aspect": "Protection", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/09015.webp", "type": "Event", "copies": 3},
-    {"name": "Gancho",            "aspect": "Aggression", "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01054.webp", "type": "Event", "copies": 2},
-    {"name": "Wakanda Forever",   "aspect": "Hero",       "tier": "A", "img": "https://cdn.jsdelivr.net/gh/alaintxu/mc-ocr@main/images/accepted/01043b.webp", "type": "Event", "copies": 4},
-])
+data = card_data
 
 # ----------------- CARD HTML RENDER -----------------------------------------
 
