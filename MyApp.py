@@ -76,7 +76,7 @@ def render_card(row: pd.Series) -> str:
     )
 
 # ----------------------------- UI -------------------------------------------
-background_image_url = "https://raw.githubusercontent.com/bluefireF5ran/streamlit-MC_app/refs/heads/main/images/background.png"
+background_image_url = "https://raw.githubusercontent.com/bluefireF5ran/streamlit-MC_app/500c99d17e2073dab68b38c88cc0475cb8e9da82/images/background.png"
 st.markdown(
     f"""
     <style>
