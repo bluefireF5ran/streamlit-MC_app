@@ -76,7 +76,7 @@ def render_card(row: pd.Series) -> str:
     )
 
 # ----------------------------- UI -------------------------------------------
-background_image_url = "https://github.com/alechoward-lab/Marvel-Champions-Hero-Tier-List/blob/main/images/background/marvel_champions_background_image_v4.jpg?raw=true"
+background_image_url = "https://raw.githubusercontent.com/bluefireF5ran/streamlit-MC_app/refs/heads/main/images/background.png"
 st.markdown(
     f"""
     <style>
