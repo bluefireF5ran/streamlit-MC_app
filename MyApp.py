@@ -94,10 +94,7 @@ for idx, (_, row) in enumerate(data.iterrows()):
 # ------------------------- SIDEBAR -----------------------------------------
 with st.sidebar:
     st.markdown("### Main Page")
-    
-    # Theme selector
-    theme = st.selectbox("Theme", ["Dark", "Light"], index=0)
-    
+        
     # GitHub link
     st.markdown("---")
     st.markdown("### 🔗 Links")
