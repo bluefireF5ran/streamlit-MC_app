@@ -58,4 +58,9 @@ hero_image_urls = {
     "Nick Fury": "https://i.imgur.com/6STdIKk.jpeg",
     "Shuri": "https://i.imgur.com/CdLOKBd.jpeg",
     "Silk": "https://i.imgur.com/UCmYWV8.jpeg",
+
+
+
+    # Fanmade Heroes
+    "Moon Knight": "https://i.imgur.com/kZHsEVk.jpeg"    
 }
