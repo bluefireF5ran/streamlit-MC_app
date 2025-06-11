@@ -7,7 +7,6 @@
 #   streamlit run app.py
 
 from __future__ import annotations
-from hero_image_urls import hero_image_urls
 
 
 import streamlit as st
@@ -17,22 +16,15 @@ from matplotlib.patches import Patch
 import pandas as pd
 import copy
 
+from hero_image_urls import hero_image_urls
+from aspect_colors import aspect_colors
+
+
 # ---------- TUNABLE CONSTANTS ------------------------------------------------
 CARD_BASE_W = 240          # px – width of the front card
 OFFSET_PX   = 22           # px – shift per stacked copy
 BORDER_RADIUS_PX = 14      # corner radius (px)
 
-# colour per aspect (stroke)
-TYPE_COLOURS = {
-    "Hero":           '#0074D9',
-    "Justice":        '#FFD700',
-    "Leadership":     '#00CED1',
-    "Aggression":     '#FF4136',
-    "Protection":     '#32CD32',
-    "Pool":           '#FF69B4',
-    "Scenario":       '#800080',
-    "Basic":          '#B0B0B0',
-}
 
 
 
@@ -50,7 +42,7 @@ data = pd.DataFrame([
 
 def render_card(row: pd.Series) -> str:
     """Return raw HTML for one card with 1‑4 stacked copies."""
-    stroke = TYPE_COLOURS.get(row["aspect"], "#ffffff")
+    stroke = aspect_colors.get(row["aspect"], "#ffffff")
     copies = int(max(1, min(row["copies"], 4)))  # clamp 1‑4
 
     layers: list[str] = []
