@@ -8,4 +8,10 @@ aspect_colors = {
     "Pool":           '#FF69B4',
     "Scenario":       '#800080',
     "Basic":          '#B0B0B0',
+    
+    # Custom aspects
+    "Venomizado":      '#000000',
+    "Determinacion":   '#604d63',
+    "Masoquismo":      '#ce5502',
+    "Fantastico":      '#0f4d86'
 }
